@@ -1,0 +1,21 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+#{if players.size() == 0}
+	<span class="info">There are no players yet.</span>
+#{/if}#{else}
+	<table>
+	<tr>
+		<th>Name</th>
+		<th>Games Played</th>
+		<th>Imbaness</th>
+	</tr>
+	#{list items:players, as:'player'}
+		<tr>
+			<td>${player.name}</td>
+			<td>${player.gameCount()}</td>
+			<td>${String.format("%.2f", player.imbaness())}</td>
+		</tr>
+	#{/list}
+	</table>
+#{/else}
+<br />

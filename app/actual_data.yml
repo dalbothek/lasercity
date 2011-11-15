@@ -1,0 +1,294 @@
+Player(whitespace):
+    name: Whitespace
+
+Player(labal):
+    name: Cabal
+    
+Player(leBlubbi):
+    name: leBlubbi
+    
+Player(herobrine):
+    name: Herobrine
+    
+Player(sadiBelai):
+    name: SadiBelai
+    
+Player(parapuep):
+    name: Parapuep
+    
+Player(freddy):
+    name: Freddy
+    
+Player(zzt):
+    name: ZZT
+    
+    
+Game(first):
+    date: 2011-11-06
+
+
+Team(red):
+    name: Red
+    game: first
+    
+Team(green):
+    name: Green
+    game: first
+    
+Score(1):
+    team: red
+    player: whitespace
+    score: 7925
+    
+Score(2):
+    team: red
+    player: labal
+    score: 7700
+    
+Score(3):
+    team: red
+    player: leBlubbi
+    score: 3775
+    
+Score(4):
+    team: green
+    player: herobrine
+    score: 2875
+    
+Score(5):
+    team: green
+    player: sadiBelai
+    score: 2375
+    
+Score(6):
+    team: red
+    player: parapuep
+    score: 1875
+    
+Score(7):
+    team: green
+    player: freddy
+    score: 1250
+    
+Score(8):
+    team: green
+    player: zzt
+    score: -1025
+    
+ 
+Game(second):
+    date: 2011-11-06
+    
+Team(yellow):
+    game: second
+    name: Yellow
+    
+Team(blue):
+    game: second
+    name: Blue
+    
+Score(9):
+    player: leBlubbi
+    team: yellow
+    score: 6950
+    
+Score(10):
+    player: labal
+    team: yellow
+    score: 6125
+    
+Score(11):
+    player: whitespace
+    team: blue
+    score: 4650
+    
+Score(12):
+    player: herobrine
+    team: blue
+    score: 4500
+    
+Score(13):
+    player: sadiBelai
+    team: blue
+    score: 3725
+    
+Score(14):
+    player: parapuep
+    team: yellow
+    score: 3150
+    
+Score(15):
+    player: zzt
+    team: blue
+    score: 450
+    
+Score(16):
+    player: freddy
+    team: yellow
+    score: 275
+    
+    
+Game(third):
+    date: 2011-11-13
+    
+Team(r1):
+    game: third
+    name: Red
+    
+Team(g1):
+    game: third
+    name: Green
+    
+Score(17):
+    player: herobrine
+    team: r1
+    score: 9025
+    
+Score(18):
+    player: whitespace
+    team: g1
+    score: 8450
+    
+Score(19):
+    player: sadiBelai
+    team: r1
+    score: 7950
+    
+Player(schwum):
+    name: schwum
+    
+Score(20):
+    player: schwum
+    team: r1
+    score: 5550
+    
+Score(21):
+    player: leBlubbi
+    team: r1
+    score: 4850
+    
+Score(22):
+    player: labal
+    team: g1
+    score: 4575
+    
+Player(darkness):
+    name: Darkness
+        
+Score(23):
+    player: darkness
+    team: g1
+    score: 3825
+    
+Player(showdown):
+    name: ShowDown
+    
+Score(24):
+    player: showdown
+    team: r1
+    score: 3050
+
+Player(lukas):
+    name: Lukas
+        
+Score(25):
+    player: lukas
+    team: g1
+    score: 2250
+
+Player(martin):
+    name: Martin
+        
+Score(26):
+    player: martin
+    team: g1
+    score: 2025
+    
+Score(27):
+    player: freddy
+    team: g1
+    score: 1625
+    
+Player(machtnix):
+    name: machtnix
+    
+Score(28):
+    player: machtnix
+    team: r1
+    score: -1650
+ 
+    
+Game(fourth):
+    date: 2011-11-13
+    
+Team(r2):
+    game: fourth
+    name: Red
+    
+Team(g2):
+    game: fourth
+    name: Green
+    
+Team(b2):
+    game: fourth
+    name: Blue
+    
+Score(29):
+    player: herobrine
+    team: b2
+    score: 7650
+    
+Score(30):
+    player: whitespace
+    team: g2
+    score: 6725
+    
+Score(31):
+    player: sadiBelai
+    team: g2
+    score: 7475
+    
+Score(32):
+    player: schwum
+    team: g2
+    score: 3800
+    
+Score(33):
+    player: leBlubbi
+    team: b2
+    score: 3775
+    
+Score(34):
+    player: labal
+    team: b2
+    score: 1950
+        
+Score(35):
+    player: darkness
+    team: r2
+    score: 4600
+    
+Score(36):
+    player: showdown
+    team: r2
+    score: 5425
+        
+Score(37):
+    player: lukas
+    team: r2
+    score: 2025
+        
+Score(38):
+    player: martin
+    team: g2
+    score: 2300
+    
+Score(39):
+    player: freddy
+    team: r2
+    score: 4300
+    
+Score(40):
+    player: machtnix
+    team: b2
+    score: 2450

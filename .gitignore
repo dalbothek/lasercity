@@ -1,0 +1,11 @@
+.classpath
+.project
+.settings
+conf/application.conf
+eclipse/
+test-result/
+tmp/
+
+*~
+.DS_Store
+*.orig
