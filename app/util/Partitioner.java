@@ -5,11 +5,37 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * <code>Partitioner</code> splits a {@link Collection} of objects into two
+ * groups such that the worth of both groups is as balanced as possible. The
+ * worth of a group is determined by calling the <code>partitionWorth</code>
+ * method on each member and adding the results.
+ * 
+ * @author Simon Marti
+ */
 public class Partitioner<T extends Partitioner.Partitionable> {
+  /**
+   * Classes implementing the <code>Partitionable</code> interface can be
+   * partitioned by the {@link Partitioner}.
+   * 
+   */
   public interface Partitionable {
+    /**
+     * The worth of an object is used by the {@link Partitioner} to balance the
+     * groups.
+     * 
+     * @return the worth of the object
+     */
     public float partitionWorth();
   }
 
+  /**
+   * Splits a {@link Collection} of objects into two groups such that the worth
+   * of both groups is as balanced as possible.
+   * 
+   * @param items Items to split
+   * @return An instance of {@link Partition} containing the two groups
+   */
   public static <T extends Partitioner.Partitionable> Partition part(Collection<T> items) {
     Partitioner<T> partitioner = new Partitioner<T>(items);
     partitioner.part();
@@ -48,7 +74,6 @@ public class Partitioner<T extends Partitioner.Partitionable> {
     }
     Collections.sort(partitions);
     bldm(partitions);
-    System.out.println("steps(" + n + ") : " + steps);
   }
 
   private void bldm(Collection<Partition<T>> partitions) {
@@ -133,17 +158,20 @@ public class Partitioner<T extends Partitioner.Partitionable> {
     return best;
   }
 
+  /**
+   * Represents an optimal partition computed by {@link Partitioner}.
+   */
   public static class Partition<T extends Partitioner.Partitionable> implements Comparable<Partition<T>> {
     public final Collection<T> left;
     public final Collection<T> right;
     public final int m;
     public final float difference;
 
-    public Partition() {
+    private Partition() {
       this(Collections.<T> emptySet(), Collections.<T> emptySet());
     }
 
-    public Partition(T item) {
+    private Partition(T item) {
       this(createCollection(item), Collections.<T> emptySet());
     }
 
@@ -169,11 +197,11 @@ public class Partitioner<T extends Partitioner.Partitionable> {
       return tmpLeft;
     }
 
-    public Partition<T> combine(Partition<T> partition) {
+    private Partition<T> combine(Partition<T> partition) {
       return combine(partition.left, partition.right);
     }
 
-    public Partition<T> combineReverse(Partition<T> partition) {
+    private Partition<T> combineReverse(Partition<T> partition) {
       return combine(partition.right, partition.left);
     }
 

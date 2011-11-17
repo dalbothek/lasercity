@@ -1,28 +1,15 @@
 import java.util.LinkedList;
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Random;
 
 import org.junit.Test;
 
 import play.test.UnitTest;
 import util.Partitioner;
 import util.Partitioner.Partition;
-import util.Partitioner.Partitionable;
+import benchmark.TeamBuildingBenchmark.Item;
 
 public class TeamBuildingTest extends UnitTest {
   private List<Item> values = new LinkedList<Item>();
-
-  @Test
-  public void sortingTest() {
-    PriorityQueue<Partition<Item>> list = new PriorityQueue<Partition<Item>>();
-    for (int i = 0; i < 3; i++) {
-      list.add(new Partition<Item>(new Item(i)));
-    }
-    while (list.size() >= 2) {
-      assertTrue(list.poll().difference > list.peek().difference);
-    }
-  }
 
   @Test
   public void trivialTests() {
@@ -69,27 +56,5 @@ public class TeamBuildingTest extends UnitTest {
     part = Partitioner.part(values);
     System.out.println(part.m);
     System.out.println(part.difference);
-  }
-
-  @Test
-  public void speedTest() {
-    Random rand = new Random();
-    for (int i = 0; i < 24; i++) {
-      values.add(new Item(rand.nextInt()));
-      Partitioner.part(values);
-    }
-  }
-
-  public class Item implements Partitionable {
-    private int value;
-
-    public Item(int value) {
-      this.value = value;
-    }
-
-    @Override
-    public float partitionWorth() {
-      return value;
-    }
   }
 }
