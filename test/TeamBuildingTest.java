@@ -36,9 +36,9 @@ public class TeamBuildingTest extends UnitTest {
     values.add(new Item(10));
     part = Partitioner.part(values);
     assertEquals(0, part.m);
-    assertEquals(6, part.difference, 0);
     assertEquals(2, part.right.size());
     assertEquals(2, part.left.size());
+    assertEquals(6, part.difference, 0);
   }
 
   @Test

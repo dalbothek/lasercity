@@ -68,7 +68,7 @@ public class Partitioner<T extends Partitioner.Partitionable> {
       bestDifference = 0;
       return;
     }
-    List<Partition<T>> partitions = new ArrayList<Partition<T>>(n);
+    List<Partition<T>> partitions = new ArrayList<Partition<T>>();
     for (T t : items) {
       partitions.add(new Partition<T>(t));
     }
@@ -76,11 +76,11 @@ public class Partitioner<T extends Partitioner.Partitionable> {
     bldm(partitions);
   }
 
-  private void bldm(Collection<Partition<T>> partitions) {
+  private void bldm(List<Partition<T>> partitions) {
     steps++;
     int k = partitions.size();
     if (k == 1) {
-      Partition<T> leaf = partitions.iterator().next();
+      Partition<T> leaf = partitions.get(0);
       if (leaf.m <= m && leaf.difference < bestDifference) {
         bestDifference = leaf.difference;
         bestPartitions = leaf;
@@ -96,29 +96,35 @@ public class Partitioner<T extends Partitioner.Partitionable> {
       if (2 * maxm - summ > m || summ < m) {
         return;
       }
-      if (k <= n2) {
-        ArrayList<Partition<T>> sortedPartitions;
-        partitions = sortedPartitions = new ArrayList<Partition<T>>(partitions);
-        Collections.sort(sortedPartitions);
+      if (k == n2) {
+        Collections.sort(partitions);
       }
-      Collection<Partition<T>> left = new ArrayList<Partition<T>>(k - 1);
-      Collection<Partition<T>> right = new ArrayList<Partition<T>>(k - 1);
-      Partition combine1 = null;
-      Partition combine2 = null;
-      for (Partition partition : partitions) {
-        if (combine1 == null) {
-          combine1 = partition;
-        } else if (combine2 == null) {
-          combine2 = partition;
-        } else {
-          left.add(partition);
-          right.add(partition);
+      Partition left = partitions.remove(0);
+      Partition right = partitions.remove(0);
+      Partition combined = left.combine(right);
+      add(partitions, combined, k);
+      bldm(partitions);
+      partitions.remove(combined);
+      combined = left.combineReverse(right);
+      add(partitions, combined, k);
+      bldm(partitions);
+      partitions.remove(combined);
+      partitions.add(0, right);
+      partitions.add(0, left);
+    }
+  }
+
+  private void add(List<Partition<T>> partitions, Partition<T> partition, int k) {
+    if (k > n2) {
+      partitions.add(partition);
+    } else {
+      for (int i = 0; i < partitions.size(); i++) {
+        if (partitions.get(i).difference < partition.difference) {
+          partitions.add(i, partition);
+          return;
         }
       }
-      left.add(combine1.combine(combine2));
-      right.add(combine1.combineReverse(combine2));
-      bldm(left);
-      bldm(right);
+      partitions.add(partition);
     }
   }
 
@@ -217,7 +223,7 @@ public class Partitioner<T extends Partitioner.Partitionable> {
 
     @Override
     public int compareTo(Partition<T> other) {
-      return Float.valueOf(other.difference).compareTo(difference);
+      return Float.compare(other.difference, difference);
     }
   }
 }
