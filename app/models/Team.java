@@ -18,6 +18,11 @@ public class Team extends Model {
   public Set<Score> scores;
   public String name;
 
+  public Team(Game game, String name) {
+    this.game = game;
+    this.name = name;
+  }
+
   public int playerCount() {
     return scores.size();
   }

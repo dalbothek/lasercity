@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Set;
@@ -9,9 +11,10 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import play.db.jpa.Model;
+import util.Partitioner.Partitionable;
 
 @Entity
-public class Player extends Model {
+public class Player extends Model implements Partitionable {
   public String name;
   @OneToMany(mappedBy = "player", cascade = { CascadeType.MERGE,
       CascadeType.REMOVE, CascadeType.REFRESH })
@@ -20,6 +23,10 @@ public class Player extends Model {
   @OneToMany(mappedBy = "target", cascade = { CascadeType.MERGE,
       CascadeType.REMOVE, CascadeType.REFRESH })
   public Set<Hits> hits;
+
+  public Player(String name) {
+    this.name = name;
+  }
 
   public int shotCount() {
     int shots = 0;
@@ -57,7 +64,29 @@ public class Player extends Model {
         break;
       }
     }
+    if (count == 0) {
+      return -10;
+    }
     return imbaness / count;
+  }
+
+  public static Collection<Long> serializePlayerList(Collection<Player> players) {
+    Collection<Long> ids = new ArrayList<Long>(players.size());
+    for (Player player : players) {
+      ids.add(player.id);
+    }
+    return ids;
+  }
+
+  public static Collection<Player> loadSerializedPlayerList(Collection<Long> ids) {
+    Collection<Player> players = new ArrayList<Player>(ids.size());
+    for (Long id : ids) {
+      Player player = Player.<Player> findById(id);
+      if (player != null) {
+        players.add(player);
+      }
+    }
+    return players;
   }
 
   public static class PlayerComparator implements Comparator<Player> {
@@ -102,4 +131,8 @@ public class Player extends Model {
 
   }
 
+  @Override
+  public float partitionWorth() {
+    return imbaness();
+  }
 }

@@ -3,6 +3,7 @@ package util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -43,6 +44,7 @@ public class Partitioner<T extends Partitioner.Partitionable> {
   }
 
   private Collection<T> items;
+  private HashMap<T, Float> worths = new HashMap<T, Float>();
   private float bestDifference = Float.MAX_VALUE;
   private Partition bestPartitions = null;
   private final int n;
@@ -56,6 +58,20 @@ public class Partitioner<T extends Partitioner.Partitionable> {
     this.n = items.size();
     n2 = n / 2;
     m = n % 2;
+
+    float min = Float.MAX_VALUE;
+    for (T item : items) {
+      float worth = item.partitionWorth();
+      worths.put(item, worth);
+      if (worth < min) {
+        min = worth;
+      }
+    }
+    if (min < 0) {
+      for (T item : items) {
+        worths.put(item, worths.get(item) - min);
+      }
+    }
   }
 
   private Partition partition() {
@@ -64,13 +80,13 @@ public class Partitioner<T extends Partitioner.Partitionable> {
 
   private void part() {
     if (items.size() == 0) {
-      bestPartitions = new Partition<T>();
+      bestPartitions = new Partition<T>(worths);
       bestDifference = 0;
       return;
     }
     List<Partition<T>> partitions = new ArrayList<Partition<T>>();
     for (T t : items) {
-      partitions.add(new Partition<T>(t));
+      partitions.add(new Partition<T>(t, worths));
     }
     Collections.sort(partitions);
     bldm(partitions);
@@ -172,29 +188,38 @@ public class Partitioner<T extends Partitioner.Partitionable> {
     public final Collection<T> right;
     public final int m;
     public final float difference;
+    HashMap<T, Float> worths;
 
-    private Partition() {
-      this(Collections.<T> emptySet(), Collections.<T> emptySet());
+    private Partition(HashMap<T, Float> worths) {
+      this(Collections.<T> emptySet(), Collections.<T> emptySet(), worths);
     }
 
-    private Partition(T item) {
-      this(createCollection(item), Collections.<T> emptySet());
+    private Partition(T item, HashMap<T, Float> worths) {
+      this(createCollection(item), Collections.<T> emptySet(), worths);
     }
 
-    private Partition(Collection<T> left, Collection<T> right) {
+    private Partition(Collection<T> left, Collection<T> right, HashMap<T, Float> worths) {
       this.left = left;
       this.right = right;
+      this.worths = worths;
 
       m = Math.abs(left.size() - right.size());
 
       float tmpDiff = 0;
       for (T t : left) {
-        tmpDiff += t.partitionWorth();
+        tmpDiff += worths.get(t);
       }
       for (T t : right) {
-        tmpDiff -= t.partitionWorth();
+        tmpDiff -= worths.get(t);
       }
       difference = tmpDiff;
+    }
+
+    Partition(Collection<T> left, Collection<T> right, int m, float difference) {
+      this.left = left;
+      this.right = right;
+      this.m = m;
+      this.difference = difference;
     }
 
     private static <T extends Partitioner.Partitionable> Collection<T> createCollection(T item) {
@@ -218,7 +243,7 @@ public class Partitioner<T extends Partitioner.Partitionable> {
       newLeft.addAll(otherLeft);
       newRight.addAll(right);
       newRight.addAll(otherRight);
-      return new Partition<T>(newLeft, newRight);
+      return new Partition<T>(newLeft, newRight, worths);
     }
 
     @Override

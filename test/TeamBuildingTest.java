@@ -57,4 +57,16 @@ public class TeamBuildingTest extends UnitTest {
     System.out.println(part.m);
     System.out.println(part.difference);
   }
+
+  @Test
+  public void negativeTest() {
+    for (int i = -8; i < 8; i++) {
+      values.add(new Item(i));
+    }
+    Partition part = Partitioner.part(values);
+    System.out.println(part.m);
+    System.out.println(part.difference);
+    assertEquals(0, part.m);
+    assertEquals(0, part.difference, 0);
+  }
 }

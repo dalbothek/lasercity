@@ -1,0 +1,32 @@
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Games Played</th>
+		<th>Imbaness</th>
+	</tr>
+	#{list items:partition.left, as:'player'}
+		<tr>
+			<td>${player.name}</td>
+			<td>${player.gameCount()}</td>
+			<td>${player.imbaness().round()}%</td>
+		</tr>
+	#{/list}
+</table>
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Games Played</th>
+		<th>Imbaness</th>
+	</tr>
+	#{list partition.right, as:'player'}
+		<tr>
+			<td>${player.name}</td>
+			<td>${player.gameCount()}</td>
+			<td>${player.imbaness().round()}%</td>
+		</tr>
+	#{/list}
+</table>
+
+Difference: ${partition.difference.round()}

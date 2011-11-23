@@ -12,7 +12,7 @@ import play.db.jpa.Model;
 @Entity
 public class Game extends Model {
   @OneToMany(mappedBy = "game", cascade = { CascadeType.MERGE,
-      CascadeType.REMOVE, CascadeType.REFRESH })
+      CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.ALL })
   public Set<Team> teams;
   public Date date;
 

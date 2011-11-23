@@ -21,7 +21,13 @@ public class Score extends Model {
       CascadeType.REMOVE, CascadeType.REFRESH })
   Set<Hits> hits;
 
+  public Score(Team team, Player player, int score) {
+    this.team = team;
+    this.score = score;
+    this.player = player;
+  }
+
   public float imbaness() {
-    return score / team.game.avgScore();
+    return score * 100 / team.game.avgScore() - 100;
   }
 }

@@ -13,9 +13,11 @@
 		<tr>
 			<td>${player.name}</td>
 			<td>${player.gameCount()}</td>
-			<td>${String.format("%.2f", player.imbaness())}</td>
+			<td>${player.imbaness().round()}%</td>
 		</tr>
 	#{/list}
 	</table>
 #{/else}
-<br />
+#{form @Application.newPlayer()}
+New player: <input name="name" /><input type="submit" />
+#{/form}
