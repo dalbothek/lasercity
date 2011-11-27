@@ -18,9 +18,14 @@ public class Application extends Controller {
   }
 
   public static void index() {
-    List<Player> players = Player.<Player> findAll();
+    List<Player> players = Player.find("byImba", false).<Player> fetch();
     Collections.sort(players, new PlayerComparator(Property.IMBANESS));
+    // bla();
     render(players);
+  }
+
+  public static void bla() {
+
   }
 
   public static void newPlayer(String name) {

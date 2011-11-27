@@ -201,7 +201,18 @@ table { border-collapse: collapse; border-spacing: 0; }
    Author: 
    ========================================================================== */
 
+table {
+	margin: 5px;
+}
 
+td.right {
+	text-align: right;
+}
+
+td, th {	
+	border: 1px #333 solid;
+	padding: 1px;
+}
 
 
 

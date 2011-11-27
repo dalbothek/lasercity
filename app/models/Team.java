@@ -46,4 +46,18 @@ public class Team extends Model {
   public float avgScore() {
     return totalScore() / (float) playerCount();
   }
+
+  public long correctedPlayerCount() {
+    return Score.count("team = ? and player.imba = false", this);
+  }
+
+  public int correctedTotalScore() {
+    int total = 0;
+    for (Score score : scores) {
+      if (!score.player.imba) {
+        total += score.score;
+      }
+    }
+    return total;
+  }
 }

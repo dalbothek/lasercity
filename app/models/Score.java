@@ -28,6 +28,6 @@ public class Score extends Model {
   }
 
   public float imbaness() {
-    return score * 100 / team.game.avgScore() - 100;
+    return score * 100 / team.game.correctedAvgScore() - 100;
   }
 }

@@ -44,4 +44,14 @@ public class Game extends Model {
     return score;
   }
 
+  public float correctedAvgScore() {
+    int score = 0;
+    int count = 0;
+    for (Team team : teams) {
+      score += team.correctedTotalScore();
+      count += team.correctedPlayerCount();
+    }
+    return score / (float) count;
+  }
+
 }

@@ -16,6 +16,7 @@ import util.Partitioner.Partitionable;
 @Entity
 public class Player extends Model implements Partitionable {
   public String name;
+  public boolean imba;
   @OneToMany(mappedBy = "player", cascade = { CascadeType.MERGE,
       CascadeType.REMOVE, CascadeType.REFRESH })
   public Set<Score> scores;

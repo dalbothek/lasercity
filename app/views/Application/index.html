@@ -12,8 +12,8 @@
 	#{list items:players, as:'player'}
 		<tr>
 			<td>${player.name}</td>
-			<td>${player.gameCount()}</td>
-			<td>${player.imbaness().round()}%</td>
+			<td class="right">${player.gameCount()}</td>
+			<td class="right">${player.imbaness().round()}%</td>
 		</tr>
 	#{/list}
 	</table>
