@@ -1,0 +1,18 @@
+#{extends 'mobile.html' /}
+
+#{include 'PlayerController/list.html' /}
+
+<div id="add" class="form">
+	<form action="@{PlayerController.newPlayer()}" method="post" rel="slidedown">
+		<div class="toolbar">
+			<h1>New Player</h1>
+			<a href="#home" class="button leftButton slidedown">Cancel</a>
+			<a href="#" id="addPlayer" class="blue submit button">Save</a>
+		</div>
+		<ul class="rounded">
+				<li><input name="name" placeholder="Name" type="text" /></li>
+				<li><input name="imbaness" placeholder="Imbaness" type="number" /></li>
+				<li>Imba<input name="imba" type="checkbox" class="toggle" /></li>
+		</ul>
+	</form>
+</div>

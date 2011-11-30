@@ -1,0 +1,27 @@
+.whiteButton {
+	margin: 10px;
+}
+
+ul.rounded li {
+	height: 25px;
+}
+
+.hidden {
+	display: none;
+}
+
+#home li.arrow input {
+	display: none;
+}
+
+#home li small {
+	display: none;
+}
+
+#home li.arrow small {
+	display: inline;
+}
+
+#jqt {
+	min-height: 480px;
+}

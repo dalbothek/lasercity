@@ -1,32 +1,46 @@
-
-<table>
-	<tr>
-		<th>Name</th>
-		<th>Games Played</th>
-		<th>Imbaness</th>
-	</tr>
-	#{list items:partition.left, as:'player'}
-		<tr>
-			<td>${player.name}</td>
-			<td>${player.gameCount()}</td>
-			<td>${player.imbaness().round()}%</td>
-		</tr>
+<div id="teams">
+<div class="toolbar">
+	<h1>Teams</h1>
+	<a href="#home" class="back">Players</a>
+	<a href="#score" class="blue slideleft button">Scores</a>
+</div>
+<ul class="rounded">
+	#{list left, as:'player'}
+		<li>
+			<a href="#">${player.name}
+			<small>${player.imbaness().round()}%</small>
+			</a>
+		</li>
 	#{/list}
-</table>
-
-<table>
-	<tr>
-		<th>Name</th>
-		<th>Games Played</th>
-		<th>Imbaness</th>
-	</tr>
-	#{list partition.right, as:'player'}
-		<tr>
-			<td>${player.name}</td>
-			<td>${player.gameCount()}</td>
-			<td>${player.imbaness().round()}%</td>
-		</tr>
+</ul>
+<ul class="rounded">
+	#{list right, as:'player'}
+		<li>
+			<a href="#">${player.name}
+			<small>${player.imbaness().round()}%</small>
+			</a>
+		</li>
 	#{/list}
-</table>
-
-Difference: ${partition.difference.round()}
+</ul>
+</div>
+<div id="score" class="form">
+	<form action="@{GameController.newGame()}" method="post" rel="slideright">
+	<div class="toolbar">
+		<h1>Scores</h1>
+		<a href="#team" class="back">Teams</a>
+		<a href="#" class="blue slideleft submit button">Save</a>
+	</div>
+	%{left.addAll(right);}%
+	#{list left, as:'player'}
+		<ul class="rounded">
+			<li>${player.name}</li>
+			<li><input type="number" name="score[${player.id}]" placeholder="Score" /></li>
+			<li><select name="team[${player.id}]">
+				%{for(int i=1; i<=2; i++) {}%
+					<option${(i == 1 ^ right.contains(player)) ? " selected" : ""} value="${i}">${i==1?"Blue":"Red"}</option>
+				%{ } }%
+			</select></li>
+		</ul>
+	#{/list}
+	</form>
+</div>

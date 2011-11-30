@@ -3,12 +3,9 @@
 # ~~~~
 
 # Home page
-GET     /                                       Application.index
-GET		/team									TeamBuilder.playerSelection
-POST	/team									TeamBuilder.build
-POST	/score									TeamBuilder.score
+GET     /                                       Mobile.view
 
-GET		/load									Application.loadData
+GET		/load									Mobile.loadData
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

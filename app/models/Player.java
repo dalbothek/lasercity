@@ -24,9 +24,20 @@ public class Player extends Model implements Partitionable {
   @OneToMany(mappedBy = "target", cascade = { CascadeType.MERGE,
       CascadeType.REMOVE, CascadeType.REFRESH })
   public Set<Hits> hits;
+  private int guesstimate;
 
   public Player(String name) {
+    this(name, -10);
+  }
+
+  public Player(String name, int imbaness) {
+    this(name, imbaness, false);
+  }
+
+  public Player(String name, int imbaness, boolean imba) {
     this.name = name;
+    guesstimate = imbaness;
+    this.imba = imba;
   }
 
   public int shotCount() {
@@ -66,7 +77,7 @@ public class Player extends Model implements Partitionable {
       }
     }
     if (count == 0) {
-      return -10;
+      return guesstimate;
     }
     return imbaness / count;
   }

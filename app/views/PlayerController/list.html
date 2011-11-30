@@ -1,0 +1,29 @@
+<div id="home" class="form">
+	#{form @TeamBuilder.build()}
+	<div class="toolbar">
+		<h1>Lasercity</h1>
+		<a href="#add" id="addPlayerButton" class="button add slideup">+</a>
+		<a href="#team" id="buildTeamButton" class=" blue hidden submit button">Build</a>
+		<a href="#" id="teamButton" class="button leftButton">New Game</a>
+	</div>
+	<div>
+		#{if players.size() == 0}
+			<ul class="rounded">
+				<li>There are no players yet.</li>
+			</ul>
+		#{/if}#{else}
+			<ul class="rounded">
+			#{list items:players, as:'player'}
+					<li class="arrow">
+						<a href="#">
+							${player.name}
+							<small>${player.imbaness().round()}%</small>
+							<input type="checkbox" value="1" name="player[${player.id}]" class="toggle" />
+						</a>
+					</li>
+			#{/list}
+			</lu>
+		#{/else}
+	</div>
+	#{/form}
+</div>
